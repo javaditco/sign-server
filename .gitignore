@@ -1,2 +1,5 @@
 *.txt
 sign-server
+uplodaded/*
+signatures/*
+*.gpg

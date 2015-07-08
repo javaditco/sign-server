@@ -11,5 +11,5 @@ func main() {
 	r.HandleFunc("/upload", UploadHandler).Methods("PUT")
 	r.HandleFunc("/file/{id}", GetFileHandler).Methods("GET")
 	n.UseHandler(r)
-	n.Run("127.0.0.1:8080")
+	n.Run("0.0.0.0:8080")
 }
