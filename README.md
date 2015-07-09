@@ -2,6 +2,8 @@ Tarball signer server
 
 to test it:
 
+*Important:* You need a GPG key pair to test it. if you have a key ring, do a ````make key-export```` to export them. 
+
 
 ````curl -F "file1=@test.tgz" -X PUT http://127.0.0.1:8080/upload````
 
