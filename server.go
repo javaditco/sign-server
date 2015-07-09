@@ -13,7 +13,7 @@ var Config_map_string map[string]string
 
 func main() {
 
-	production := flag.Bool("production", false, "run it in production mode")
+	development := flag.Bool("production", false, "run it in production mode")
 
 	viper.SetConfigName("sign-server")
 
@@ -25,10 +25,10 @@ func main() {
 
 
 
-	if *production == true {
-		Config_map_string = viper.GetStringMapString("production")
-	} else {
+	if *development == true {
 		Config_map_string = viper.GetStringMapString("development")
+	} else {
+		Config_map_string = viper.GetStringMapString("production")
 	}
 
 	r := mux.NewRouter()
