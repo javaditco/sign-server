@@ -5,6 +5,11 @@ to test it:
 
 ````curl -F "file1=@test.txt" -X PUT http://127.0.0.1:8080/upload````
 
+or if you are running the dns config below:
+
+
+````curl -F "file1=@test.txt" -X PUT http://sign-server:8080/upload````
+
 where test.txt is a local file
 
 
