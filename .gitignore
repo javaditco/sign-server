@@ -3,3 +3,4 @@ sign-server
 uplodaded/*
 signatures/*
 *.gpg
+*.swp

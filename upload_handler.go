@@ -28,7 +28,7 @@ type UploadedFile struct {
 func (u *UploadedFile) GenPath(path string) string {
 	// TODO
 	// defensive programming
-	return "/file/" + path + u.Name
+	return path + u.Name
 }
 
 func (u *UploadedFile) GetSha256(path string) string {

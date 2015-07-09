@@ -8,3 +8,13 @@ to test it:
 where test.txt is a local file
 
 
+build docker image
+
+
+run docker
+
+````sudo docker run  --dns 172.17.42.1 --name sign-server -i -t -v $PWD:/sign-server vpereira/golang````
+
+update dnsmasq config:
+
+````sudo ./update-dns.sh````
