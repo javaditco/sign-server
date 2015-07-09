@@ -2,9 +2,9 @@ package main
 
 import (
 	"bytes"
-	"log"
 	"golang.org/x/crypto/openpgp"
 	"golang.org/x/crypto/openpgp/clearsign"
+	"log"
 	"os"
 )
 

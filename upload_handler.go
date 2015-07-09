@@ -99,7 +99,7 @@ func UploadHandler(res http.ResponseWriter, req *http.Request) {
 				return
 			}
 
-      defer outfile.Close()
+			defer outfile.Close()
 
 			// 32K buffer copy
 			var written int64
@@ -110,11 +110,11 @@ func UploadHandler(res http.ResponseWriter, req *http.Request) {
 
 			uploaded_file := NewUploadedFile(hdr.Filename, "uploaded/", written)
 
-      signer := NewSigner("tarball-signer@example.org","secring.gpg")
+			signer := NewSigner("tarball-signer@example.org", "secring.gpg")
 
-      go signer.SignIt(uploaded_file.Sha256, fmt.Sprintf("%s",uploaded_file.Id))
+			go signer.SignIt(uploaded_file.Sha256, fmt.Sprintf("%s", uploaded_file.Id))
 
-  		js, err := json.Marshal(uploaded_file)
+			js, err := json.Marshal(uploaded_file)
 
 			if err != nil {
 				http.Error(res, err.Error(), http.StatusInternalServerError)

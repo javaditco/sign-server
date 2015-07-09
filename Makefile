@@ -10,9 +10,12 @@ deps:
 	go get code.google.com/p/go-uuid/uuid
 	go get golang.org/x/crypto/openpgp/clearsign
 
-test-deps:	
+test-deps:
 	go get github.com/stretchr/testify/assert
 
+
+test:
+	go test
 
 format:
 	go fmt ./...
