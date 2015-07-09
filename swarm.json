@@ -1,0 +1,16 @@
+{
+    "app_name": "sign-server",
+    "services": [
+        {
+            "service_name": "sign-server-service",
+            "components": [
+                {
+                    "component_name": "sign-server-component",
+                    "image": "registry.giantswarm.io/vpereira/sign-server",
+                    "ports": [8080],
+                    "domains": { "sign-server.giantswarm.io": 8080 }
+                }
+            ]
+        }
+    ]
+}
