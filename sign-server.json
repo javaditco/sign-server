@@ -1,0 +1,12 @@
+{
+  "development": {
+    "port": "8080",
+    "name": "sign-server",
+    "email": "tarball-signer@example.org"
+  },
+  "production": {
+    "port": "8080",
+    "name": "sign-server",
+    "email": "tarball-signer@example.org"
+  }
+}

@@ -44,7 +44,8 @@ func (u *UploadedFile) GetSha256(path string) string {
 }
 
 func (u *UploadedFile) GenURL() string {
-	return fmt.Sprintf("http://sign-server:8080/file/%s", u.Id)
+	return fmt.Sprintf("http://%s:%s/file/%s", Config_map_string["name"],
+    Config_map_string["port"],u.Id)
 }
 
 func NewUploadedFile(fileName string, path string, bytes int64) UploadedFile {
@@ -110,7 +111,7 @@ func UploadHandler(res http.ResponseWriter, req *http.Request) {
 
 			uploaded_file := NewUploadedFile(hdr.Filename, "uploaded/", written)
 
-			signer := NewSigner("tarball-signer@example.org", "secring.gpg")
+			signer := NewSigner(Config_map_string["email"], "secring.gpg")
 
 			go signer.SignIt(uploaded_file.Sha256, fmt.Sprintf("%s", uploaded_file.Id))
 
