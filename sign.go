@@ -2,11 +2,9 @@ package main
 
 import (
 	"bytes"
-	"io/ioutil"
-	//  "fmt"
+	"log"
 	"golang.org/x/crypto/openpgp"
 	"golang.org/x/crypto/openpgp/clearsign"
-	"log"
 	"os"
 )
 
@@ -28,12 +26,10 @@ func (s *Signer) GetKeyByEmail(keyring openpgp.EntityList, email string) *openpg
 	return nil
 }
 
-func (s *Signer) SignIt(file_to_be_signed string, uuid string) {
+func (s *Signer) SignIt(sha256 string, uuid string) {
 	var buf bytes.Buffer
-	myfile, _ := os.Open(file_to_be_signed)
-	dataToSign, _ := ioutil.ReadAll(myfile)
 	w, _ := clearsign.Encode(&buf, s.Entity.PrivateKey, nil)
-	_, _ = w.Write(dataToSign)
+	_, _ = w.Write([]byte(sha256))
 	w.Close()
 	ret := buf.Bytes()
 	f, err := os.Create(s.Path + uuid)
@@ -42,7 +38,7 @@ func (s *Signer) SignIt(file_to_be_signed string, uuid string) {
 		log.Fatal(err)
 	}
 	f.WriteString(string(ret[:]))
-  
+
 }
 
 // privring_path is where you exported your private ring
