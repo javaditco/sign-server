@@ -7,4 +7,8 @@ if [ ! -e sign-server ]; then
   make
 fi
 
+if [ -! secring.pgp]; then
+  ./gen-key.sh
+fi
+
 ./sign-server

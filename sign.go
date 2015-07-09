@@ -28,7 +28,12 @@ func (s *Signer) GetKeyByEmail(keyring openpgp.EntityList, email string) *openpg
 
 func (s *Signer) SignIt(sha256 string, uuid string) {
 	var buf bytes.Buffer
-	w, _ := clearsign.Encode(&buf, s.Entity.PrivateKey, nil)
+	w, err := clearsign.Encode(&buf, s.Entity.PrivateKey, nil)
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	_, _ = w.Write([]byte(sha256))
 	w.Close()
 	ret := buf.Bytes()
