@@ -6,7 +6,7 @@
   },
   "production": {
     "port": "8080",
-    "name": "sign-server.giantswarm.io",
+    "name": "sign-server-vpereira.gigantic.io",
     "email": "tarball-signer@example.org"
   }
 }

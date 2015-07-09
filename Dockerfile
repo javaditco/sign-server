@@ -6,7 +6,7 @@ RUN apt-get update && apt-get install -y gnupg2
 #VOLUME /sign-server
 #WORKDIR /sign-server
 
-EXPOSE 8080 8081
+EXPOSE 8080
 
 
 ADD . /sign-server

@@ -7,7 +7,7 @@
                 {
                     "component_name": "sign-server-component",
                     "image": "registry.giantswarm.io/vpereira/sign-server",
-                    "ports": [8080],
+                    "ports": [ 8080 ],
                     "domains": { "sign-server-vpereira.gigantic.io": 8080 }
                 }
             ]
