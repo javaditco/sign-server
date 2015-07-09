@@ -20,3 +20,8 @@ func TestNewUploadedFile(t *testing.T) {
 	tu := NewUploadedFile("README.md", "./", 31337)
 	assert.NotNil(t, tu, "We are expecting a UploadedFile object")
 }
+
+func TestNewSigner(t *testing.T) {
+  s := NewSigner("tarball-signer@example.org", "secring.gpg")
+  assert.NotNil(t, s, "We are expecting a UploadedFile object")
+}
