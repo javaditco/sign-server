@@ -1,12 +1,12 @@
 package main
 
 import (
+	"flag"
+	"fmt"
 	"github.com/codegangsta/negroni"
 	"github.com/gorilla/mux"
 	"github.com/spf13/viper"
 	"log"
-	"flag"
-	"fmt"
 )
 
 var Config_map_string map[string]string
@@ -23,8 +23,6 @@ func main() {
 		log.Fatal(err)
 	}
 
-
-
 	if *development == true {
 		Config_map_string = viper.GetStringMapString("development")
 	} else {
@@ -36,5 +34,5 @@ func main() {
 	r.HandleFunc("/upload", UploadHandler).Methods("PUT")
 	r.HandleFunc("/file/{id}", GetFileHandler).Methods("GET")
 	n.UseHandler(r)
-	n.Run(fmt.Sprintf("0.0.0.0:%s",Config_map_string["port"]))
+	n.Run(fmt.Sprintf("0.0.0.0:%s", Config_map_string["port"]))
 }

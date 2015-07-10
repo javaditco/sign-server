@@ -6,14 +6,13 @@ import (
 	"encoding/hex"
 	"encoding/json"
 	"fmt"
-	//"golang.org/x/crypto/openpgp/clearsign"
 	"io"
 	"io/ioutil"
 	"log"
 	"mime/multipart"
 	"net/http"
 	"os"
-	// "strconv"
+	"path/filepath"
 )
 
 type UploadedFile struct {
@@ -26,16 +25,12 @@ type UploadedFile struct {
 }
 
 func (u *UploadedFile) GenPath(path string) string {
-	// TODO
-	// defensive programming
-	return path + u.Name
+	return filepath.Join(path, u.Name)
 }
 
 func (u *UploadedFile) GetSha256(path string) string {
-	// TODO
-	// implement it :)
 	hasher := sha256.New()
-	s, err := ioutil.ReadFile(path + u.Name)
+	s, err := ioutil.ReadFile(filepath.Join(path, u.Name))
 	hasher.Write(s)
 	if err != nil {
 		log.Fatal(err)
@@ -44,12 +39,10 @@ func (u *UploadedFile) GetSha256(path string) string {
 }
 
 func (u *UploadedFile) GenURL() string {
-	return fmt.Sprintf("http://%s:%s/file/%s", Config_map_string["name"],
-    Config_map_string["port"],u.Id)
+	return fmt.Sprintf("http://%s/file/%s", Config_map_string["name"], u.Id)
 }
 
 func NewUploadedFile(fileName string, path string, bytes int64) UploadedFile {
-
 	u := UploadedFile{
 		Name:  fileName,
 		Bytes: bytes,
@@ -61,14 +54,13 @@ func NewUploadedFile(fileName string, path string, bytes int64) UploadedFile {
 	return u
 }
 
+// TODO
+// return on erros should be a json as well
 func UploadHandler(res http.ResponseWriter, req *http.Request) {
-
 	var (
 		status int
 		err    error
 	)
-
-	// add defer for open files
 
 	defer func() {
 		if nil != err {
@@ -95,7 +87,7 @@ func UploadHandler(res http.ResponseWriter, req *http.Request) {
 
 			// open destination
 			var outfile *os.File
-			if outfile, err = os.Create("./uploaded/" + hdr.Filename); nil != err {
+			if outfile, err = os.Create(filepath.Join(Config_map_string["upload_dir"], hdr.Filename)); nil != err {
 				status = http.StatusInternalServerError
 				return
 			}
@@ -109,7 +101,7 @@ func UploadHandler(res http.ResponseWriter, req *http.Request) {
 				return
 			}
 
-			uploaded_file := NewUploadedFile(hdr.Filename, "uploaded/", written)
+			uploaded_file := NewUploadedFile(hdr.Filename, "uploaded", written)
 
 			signer := NewSigner(Config_map_string["email"], "secring.gpg")
 

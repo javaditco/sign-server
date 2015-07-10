@@ -2,11 +2,15 @@
   "development": {
     "port": "8080",
     "name": "sign-server",
-    "email": "tarball-signer@example.org"
+    "email": "tarball-signer@example.org",
+    "upload_dir": "./uploaded",
+    "sign_dir": "./signatures"
   },
   "production": {
     "port": "8080",
     "name": "sign-server-vpereira.gigantic.io",
-    "email": "tarball-signer@example.org"
+    "email": "tarball-signer@example.org",
+    "upload_dir": "uploaded",
+    "sign_dir": "signatures"
   }
 }

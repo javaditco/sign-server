@@ -6,6 +6,7 @@ import (
 	"golang.org/x/crypto/openpgp/clearsign"
 	"log"
 	"os"
+	"path/filepath"
 )
 
 type Signer struct {
@@ -37,7 +38,7 @@ func (s *Signer) SignIt(sha256 string, uuid string) {
 	_, _ = w.Write([]byte(sha256))
 	w.Close()
 	ret := buf.Bytes()
-	f, err := os.Create(s.Path + uuid)
+	f, err := os.Create(filepath.Join(s.Path, uuid))
 	defer f.Close()
 	if err != nil {
 		log.Fatal(err)
@@ -52,7 +53,7 @@ func NewSigner(email string, privring_path string) Signer {
 
 	signer := Signer{
 		Email: email,
-		Path:  "signatures/",
+		Path:  Config_map_string["sign_dir"],
 	}
 
 	privRingKeyFile, err := os.Open(privring_path)

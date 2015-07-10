@@ -9,5 +9,5 @@ fi
 
 container='sign-server'
 new_ip=$(docker inspect --format '{{ .NetworkSettings.IPAddress }}' sign-server)
-echo "host-record=sign-server-vpereira.gigantic.io,$new_ip" > /etc/dnsmasq.d/0host_$container
+echo "host-record=$container,$new_ip" > /etc/dnsmasq.d/0host_$container
 systemctl restart dnsmasq
