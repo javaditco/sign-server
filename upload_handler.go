@@ -6,6 +6,7 @@ import (
 	"encoding/hex"
 	"encoding/json"
 	"fmt"
+	"github.com/vpereira/signer"
 	"io"
 	"io/ioutil"
 	"log"
@@ -103,7 +104,8 @@ func UploadHandler(res http.ResponseWriter, req *http.Request) {
 
 			uploaded_file := NewUploadedFile(hdr.Filename, "uploaded", written)
 
-			signer := NewSigner(Config_map_string["email"], "secring.gpg")
+			signer := signer.NewSigner(Config_map_string["email"], "secring.gpg",
+				Config_map_string["sign_dir"])
 
 			go signer.SignIt(uploaded_file.Sha256, fmt.Sprintf("%s", uploaded_file.Id))
 

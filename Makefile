@@ -5,6 +5,7 @@ clean:
 
 
 deps:
+	go get github.com/vpereira/signer
 	go get github.com/gorilla/mux
 	go get github.com/codegangsta/negroni
 	go get code.google.com/p/go-uuid/uuid
