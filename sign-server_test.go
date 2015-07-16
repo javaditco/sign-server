@@ -1,7 +1,6 @@
 package main
 
 import (
-	"code.google.com/p/go-uuid/uuid"
 	"github.com/stretchr/testify/assert"
 	"github.com/vpereira/signer"
 	"testing"
@@ -12,7 +11,7 @@ func TestStub(t *testing.T) {
 }
 
 func TestUploadedFile(t *testing.T) {
-	tu := UploadedFile{Id: uuid.NewUUID(), Name: "Foo", Bytes: 31337}
+	tu := UploadedFile{Name: "Foo", Bytes: 31337}
 	assert.NotNil(t, tu, "We are expecting a UploadedFile object")
 	assert.Equal(t, "/foo/Foo", tu.GenPath("/foo/"))
 }
@@ -30,7 +29,6 @@ func TestNewSigner(t *testing.T) {
 
 func TestSignIt(t *testing.T) {
 	sha256 := "f6f24a11d7cbbbc6d9440aca2eba0f6498755ca90adea14c5e233bf4c04bd928"
-	uuuid := "29118405-2637-11e5-b46c-0242ac11005a"
 	s := signer.NewSigner("tarball-signer@example.org", "secring.gpg","./signatures")
-	s.SignIt(sha256, uuuid)
+	s.SignIt(sha256, sha256)
 }

@@ -1,7 +1,6 @@
 package main
 
 import (
-	"code.google.com/p/go-uuid/uuid"
 	"crypto/sha256"
 	"encoding/hex"
 	"encoding/json"
@@ -17,7 +16,6 @@ import (
 )
 
 type UploadedFile struct {
-	Id     uuid.UUID `json:"id"`
 	Name   string    `json:"name"`
 	Path   string    `json:"path"`
 	Bytes  int64     `json:"bytes"`
@@ -40,7 +38,7 @@ func (u *UploadedFile) GetSha256(path string) string {
 }
 
 func (u *UploadedFile) GenURL() string {
-	return fmt.Sprintf("http://%s/file/%s", Config_map_string["name"], u.Id)
+	return fmt.Sprintf("http://%s/file/%s", Config_map_string["name"], u.Sha256)
 }
 
 func NewUploadedFile(fileName string, path string, bytes int64) UploadedFile {
@@ -48,7 +46,6 @@ func NewUploadedFile(fileName string, path string, bytes int64) UploadedFile {
 		Name:  fileName,
 		Bytes: bytes,
 	}
-	u.Id = uuid.NewUUID()
 	u.Path = u.GenPath(path)
 	u.Sha256 = u.GetSha256(path)
 	u.Url = u.GenURL()
@@ -107,7 +104,7 @@ func UploadHandler(res http.ResponseWriter, req *http.Request) {
 			signer := signer.NewSigner(Config_map_string["email"], "secring.gpg",
 				Config_map_string["sign_dir"])
 
-			go signer.SignIt(uploaded_file.Sha256, fmt.Sprintf("%s", uploaded_file.Id))
+			go signer.SignIt(uploaded_file.Sha256, fmt.Sprintf("%s", uploaded_file.Sha256))
 
 			js, err := json.Marshal(uploaded_file)
 
