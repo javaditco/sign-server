@@ -22,13 +22,12 @@ func TestNewUploadedFile(t *testing.T) {
 }
 
 func TestNewSigner(t *testing.T) {
-	s := signer.NewSigner("tarball-signer@example.org", "secring.gpg","./signatures")
+	s := signer.NewSigner("tarball-signer@example.org", "secring.gpg", "./signatures")
 	assert.NotNil(t, s, "We are expecting a UploadedFile object")
 }
 
-
 func TestSignIt(t *testing.T) {
 	sha256 := "f6f24a11d7cbbbc6d9440aca2eba0f6498755ca90adea14c5e233bf4c04bd928"
-	s := signer.NewSigner("tarball-signer@example.org", "secring.gpg","./signatures")
+	s := signer.NewSigner("tarball-signer@example.org", "secring.gpg", "./signatures")
 	s.SignIt(sha256, sha256)
 }
